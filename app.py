@@ -10,27 +10,6 @@ st.set_page_config(page_title="AI Constitution Bot", page_icon="🇮🇳", layou
 # --- SETUP ---
 load_dotenv()
 
-# --- BACKGROUND IMAGE FUNCTION ---
-def add_bg_from_local(image_file):
-    try:
-        with open(image_file, "rb") as image_file:
-            encoded_string = base64.b64encode(image_file.read()).decode()
-        st.markdown(
-            f"""
-            <style>
-            .stApp {{
-                background-image: url(data:image/{"png"};base64,{encoded_string});
-                background-size: cover;
-            }}
-            </style>
-            """,
-            unsafe_allow_html=True
-        )
-    except FileNotFoundError:
-        st.warning("Background image not found. Make sure 'background.png' is in the same folder as the app.")
-
-add_bg_from_local('background.png')
-
 # --- STYLING ---
 def local_css(file_name):
     try:

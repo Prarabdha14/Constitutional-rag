@@ -1,18 +1,17 @@
 # .streamlit/config.toml
 
 [theme]
-# The primary color for interactive elements
-primaryColor = "#FF4B4B"  # A bright coral red
+# A professional blue for interactive elements
+primaryColor="#0068C9"
 
-# The background color for the main content area
-backgroundColor = "#FFFFFF" # White
+# A very light grey for the main background
+backgroundColor="#F0F2F6"
 
-# The background color for the sidebar and other secondary areas
-secondaryBackgroundColor = "#F0F2F6" # A light grey
+# A clean white for the sidebar and other elements
+secondaryBackgroundColor="#FFFFFF"
 
-# The color of the text
-textColor = "#31333F"
+# Dark text for high contrast and readability
+textColor="#0D1117"
 
-# The font family for the app
-# Can be "sans serif", "serif", or "monospace"
-font = "sans serif"
+# Standard font
+font="sans serif"

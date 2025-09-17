@@ -5,51 +5,23 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
-/* --- FROSTED GLASS EFFECT FOR MAIN CONTENT --- */
-[data-testid="stAppViewBlockContainer"] {
-    /* The magic: blur the background behind this element */
-    backdrop-filter: blur(10px) !important;
-
-    /* A semi-transparent white background */
-    background-color: rgba(255, 255, 255, 0.85) !important;
-
-    /* Add a subtle border and shadow for depth */
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    
-    /* Add some padding */
-    padding: 2rem;
-}
-
-/* --- FROSTED GLASS EFFECT FOR SIDEBAR --- */
-[data-testid="stSidebar"] {
-    backdrop-filter: blur(10px);
-    background-color: rgba(248, 249, 250, 0.9); /* Semi-transparent light grey */
-    border-right: 1px solid rgba(255, 255, 255, 0.18);
-}
-
-
 /* --- BUTTONS --- */
 .stButton > button {
     border-radius: 8px;
     font-weight: 600;
     color: white;
-    background-image: linear-gradient(to right, #3b82f6, #6366f1);
+    background-color: #0068C9; /* Using the primaryColor from the theme */
     border: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     width: 100%;
     padding: 0.6rem 1rem;
 }
 
 .stButton > button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
-}
-
-.stButton > button:active {
-    transform: translateY(1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    background-color: #0055A4; /* A slightly darker blue on hover */
 }
 
 
@@ -58,13 +30,18 @@ body {
     border-radius: 0.75rem;
     padding: 1rem;
     margin: 0.5rem 0;
-    box-shadow: none; /* Removing shadow as the background is now distinct */
+    border: 1px solid #e1e4e8; /* Add a subtle border */
 }
 
 [data-testid="chat-message-container"]:has(div[data-testid="stChatMessageContent-user"]) {
-    background-color: #eff6ff; /* blue-50 */
+    background-color: #FFFFFF; /* White */
 }
 
 [data-testid="chat-message-container"]:has(div[data-testid="stChatMessageContent-assistant"]) {
-    background-color: #f0fdf4; /* green-50 */
+    background-color: #F6F8FA; /* Off-white */
+}
+
+/* --- SIDEBAR --- */
+[data-testid="stSidebar"] {
+    border-right: 1px solid #d1d5db;
 }
