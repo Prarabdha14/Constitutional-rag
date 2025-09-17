@@ -1,0 +1,9 @@
+streamlit
+pandas
+pymongo
+langchain
+sentence-transformers
+google-generativeai
+python-dotenv
+certifi
+openai

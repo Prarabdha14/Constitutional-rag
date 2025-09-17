@@ -1,0 +1,45 @@
+/* Import a custom font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/* Apply the font to the whole app */
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Style the chat message bubbles */
+[data-testid="chat-message-container"] {
+    border-radius: 15px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+/* Style the user's chat bubble */
+[data-testid="chat-message-container"]:has(div[data-testid="stChatMessageContent-user"]) {
+    background-color: #e0f7fa; /* A light cyan for the user */
+}
+
+/* Style the assistant's chat bubble */
+[data-testid="chat-message-container"]:has(div[data-testid="stChatMessageContent-assistant"]) {
+    background-color: #f1f8e9; /* A light green for the bot */
+}
+
+/* Style the suggestion buttons */
+.stButton > button {
+    border-radius: 10px;
+    border: 1px solid #FF4B4B;
+    color: #FF4B4B;
+    background-color: #FFFFFF;
+    transition: all 0.2s;
+    width: 100%;
+}
+
+.stButton > button:hover {
+    border-color: #FFFFFF;
+    color: #FFFFFF;
+    background-color: #FF4B4B;
+}
+
+/* Style the sidebar */
+[data-testid="stSidebar"] {
+    background-color: #F0F2F6;
+}

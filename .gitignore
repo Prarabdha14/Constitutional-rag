@@ -1,0 +1,12 @@
+# Environment variables - NEVER commit this file
+.env
+
+# Python cache and compiled files
+__pycache__/
+*.pyc
+
+# VS Code editor settings
+.vscode/
+
+# macOS system files
+.DS_Store
