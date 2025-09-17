@@ -5,15 +5,28 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
-/* --- MAIN CONTENT BACKGROUND --- */
-/* This targets the main content area of the Streamlit app */
+/* --- FROSTED GLASS EFFECT FOR MAIN CONTENT --- */
 [data-testid="stAppViewBlockContainer"] {
-    background-color: rgba(255, 255, 255, 0.9); /* White with 90% opacity */
-    padding: 20px; /* Add some padding around the content */
-    border-radius: 10px; /* Slightly rounded corners */
-    margin-top: 20px; /* Space from the top edge if needed */
-    margin-bottom: 20px; /* Space from the bottom edge if needed */
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Soft shadow for depth */
+    /* The magic: blur the background behind this element */
+    backdrop-filter: blur(10px);
+
+    /* A semi-transparent white background */
+    background-color: rgba(255, 255, 255, 0.85);
+
+    /* Add a subtle border and shadow for depth */
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    
+    /* Add some padding */
+    padding: 2rem;
+}
+
+/* --- FROSTED GLASS EFFECT FOR SIDEBAR --- */
+[data-testid="stSidebar"] {
+    backdrop-filter: blur(10px);
+    background-color: rgba(248, 249, 250, 0.9); /* Semi-transparent light grey */
+    border-right: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 
@@ -45,7 +58,7 @@ body {
     border-radius: 0.75rem;
     padding: 1rem;
     margin: 0.5rem 0;
-    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    box-shadow: none; /* Removing shadow as the background is now distinct */
 }
 
 [data-testid="chat-message-container"]:has(div[data-testid="stChatMessageContent-user"]) {
@@ -54,44 +67,4 @@ body {
 
 [data-testid="chat-message-container"]:has(div[data-testid="stChatMessageContent-assistant"]) {
     background-color: #f0fdf4; /* green-50 */
-}
-
-
-/* --- SIDEBAR & EXPANDER --- */
-/* Make sidebar opaque for readability */
-[data-testid="stSidebar"] {
-    background-color: rgba(249, 250, 251, 0.95); /* light gray with 95% opacity */
-    border-right: 1px solid #e5e7eb;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Soft shadow */
-}
-
-.stExpander {
-    border: 1px solid #d1d5db; /* gray-300 */
-    border-radius: 10px;
-}
-
-.stExpander .stInfo {
-    border-radius: 8px;
-    border-left: 5px solid #60a5fa; /* blue-400 */
-    background-color: #f0f9ff; /* blue-50 */
-}
-
-/* --- HEADER --- */
-/* Ensure title text is visible */
-h1 {
-    color: #1a202c !important; /* Darker color for visibility */
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* Subtle shadow for text */
-}
-
-h2 {
-    color: #2d3748 !important; /* Darker color for visibility */
-}
-
-/* --- CHAT INPUT --- */
-/* Ensure the chat input area is also opaque */
-[data-testid="stForm"] {
-    background-color: rgba(255, 255, 255, 0.95); /* White with 95% opacity */
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
