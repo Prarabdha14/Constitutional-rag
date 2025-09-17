@@ -1,6 +1,6 @@
 ---
 title: AI Constitution Bot
-emoji: 🇮🇳
+emoji: ⚖️
 colorFrom: blue
 colorTo: green
 sdk: streamlit
