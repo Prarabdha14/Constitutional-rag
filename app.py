@@ -2,11 +2,36 @@ import streamlit as st
 from query_bot import answer_question
 import os
 from dotenv import load_dotenv
+import base64
 
-# --- SETUP AND STYLING ---
+# --- PAGE CONFIGURATION ---
 st.set_page_config(page_title="AI Constitution Bot", page_icon="🇮🇳", layout="wide")
+
+# --- SETUP ---
 load_dotenv()
 
+# --- BACKGROUND IMAGE FUNCTION ---
+def add_bg_from_local(image_file):
+    try:
+        with open(image_file, "rb") as image_file:
+            encoded_string = base64.b64encode(image_file.read()).decode()
+        st.markdown(
+            f"""
+            <style>
+            .stApp {{
+                background-image: url(data:image/{"png"};base64,{encoded_string});
+                background-size: cover;
+            }}
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+    except FileNotFoundError:
+        st.warning("Background image not found. Make sure 'background.png' is in the same folder as the app.")
+
+add_bg_from_local('background.png')
+
+# --- STYLING ---
 def local_css(file_name):
     try:
         with open(file_name) as f:
@@ -27,35 +52,28 @@ def handle_question(question, sources):
     st.session_state.messages.append(assistant_message)
     st.rerun()
 
-# --- SIDEBAR (REORGANIZED) ---
+# --- SIDEBAR ---
 with st.sidebar:
     st.title("🇮🇳 AI Constitution Bot")
     st.markdown("---")
-    
-    # "About" section is now at the top
     st.header("About This Project")
     st.info("This bot uses a Retrieval-Augmented Generation (RAG) system to answer questions based on the constitutional text of India.")
-    
     st.subheader("How It Works")
     st.markdown("""
     1.  **Vector Embeddings:** The Constitution is broken into chunks and converted into numerical vectors.
     2.  **Vector Database:** These vectors are stored and indexed in a MongoDB Atlas collection.
     3.  **Retrieval:** Your question is used to find the most semantically similar chunks from the database.
-    4.  **Generation:** The retrieved chunks and your question are sent to Google's Gemini model to generate an answer.
+    4.  **Generation:** The retrieved chunks and your question are sent to Google's Gemini model to generate a context-aware answer.
     """)
-    
     st.markdown("---")
-
-    # "Settings" and other controls are now below the "About" section
     st.header("Controls")
     with st.expander("Adjust Settings"):
         st.session_state.sources = st.slider(
             'Number of Sources to Retrieve', 1, 10, 5,
             help="Controls how many text chunks are used as context for the answer."
         )
-
     if st.button("Clear Conversation"):
-        st.session_state.messages = [{"role": "assistant", "content": "Hello! How can I help you understand the Indian Constitution today?"}]
+        st.session_state.messages = [{"role": "assistant", "content": "Hello! I am an expert on the Constitution of India. How can I help you today?"}]
         st.rerun()
 
 # --- MAIN PAGE ---
@@ -63,9 +81,18 @@ st.title("Chat with the Constitution of India")
 st.write("Ask any question, or try one of the suggestions below to get started.")
 
 if "messages" not in st.session_state:
-    st.session_state.messages = [{"role": "assistant", "content": "Hello! How can I help you understand the Indian Constitution today?"}]
+    st.session_state.messages = [{"role": "assistant", "content": "Hello! I am an expert on the Constitution of India. How can I help you today?"}]
 
-# --- EXPANDED: 2x3 GRID OF SUGGESTION BUTTONS ---
+with st.container(border=True):
+    st.subheader("My Expertise")
+    st.markdown("""
+    As an AI expert on the Constitution of India, I can answer questions about:
+    - **Fundamental Rights & Duties:** What are the rights and responsibilities of an Indian citizen?
+    - **Structure of Government:** How do the roles of the President, Prime Minister, and Parliament work?
+    - **Constitutional Procedures:** What is the process for declaring an emergency or amending the Constitution?
+    """)
+
+# --- RESTORED: 2x3 GRID OF SIX SUGGESTION BUTTONS ---
 st.write("---")
 st.subheader("Example Questions")
 q_col1, q_col2, q_col3 = st.columns(3)
@@ -93,17 +120,19 @@ with q_col6:
 
 st.write("---")
 
-# Display chat history
+# --- CHAT HISTORY DISPLAY ---
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
         if message["role"] == "assistant" and "sources" in message:
             with st.expander("View Sources Used"):
                 for source in message["sources"]:
-                    st.info(f"**Source:** {source.get('source_title', 'N/A')}\n\n**Text:** \"{source['text_chunk']}\"")
+                    score = source.get('score', 0)
+                    st.info(f"**Source:** {source.get('source_title', 'N/A')} (Relevance: {score:.2f})")
+                    st.caption(f"\"{source['text_chunk']}\"")
 
-# Main chat input
-if prompt := st.chat_input("What is your question?"):
+# --- MAIN CHAT INPUT ---
+if prompt := st.chat_input("Ask about Article 21 or the powers of the President..."):
     with st.chat_message("user"):
         st.markdown(prompt)
     handle_question(prompt, st.session_state.sources)
